@@ -1,0 +1,9 @@
+trace_id,step_index,current_activity,button_text,button_class,view_text,view_a11y_text,view_class,view_id
+1,0,com.cvs.launchers.cvs.MainActivity,"Profile","android.widget.Button",,,,
+1,1,com.cvs.account.ui.accountnavigation.AccountActivity,"Payment methods","android.widget.Button",,,,
+1,2,com.cvs.android.payments.ui.PaymentWebActivity,"Add a credit or debit card","android.widget.Button",,,,
+1,3,com.cvs.cvspaymentmethods.view.PaymentActivity,,"","4363987903289039","","android.widget.EditText","card number"
+2,0,com.cvs.launchers.cvs.MainActivity,"Profile","android.widget.Button",,,,
+2,1,com.cvs.account.ui.accountnavigation.AccountActivity,"Payment methods","android.widget.Button",,,,
+2,2,com.cvs.android.payments.ui.PaymentWebActivity,"Add a credit or debit card","android.widget.Button",,,,
+2,3,com.cvs.cvspaymentmethods.view.PaymentActivity,,"","721","","android.widget.EditText","security code"
