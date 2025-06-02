@@ -73,6 +73,6 @@ def main(csv_path: str, html_dir: str, out_csv: str):
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
-        sys.exit("Usage:\n  python match_accessibility_elements.py "
+        sys.exit("Usage:\n  python matchA11yElements.py "
                  "<app_traverse.csv> <html_folder> <output.csv>")
     main(sys.argv[1], sys.argv[2], sys.argv[3])

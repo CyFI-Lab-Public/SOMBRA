@@ -1,1 +1,4 @@
 .DS_Store
+test/com.cvs.launchers.cvs
+test/com.cvs.launchers.cvs.apk
+result/

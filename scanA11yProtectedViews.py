@@ -92,7 +92,7 @@ def main(root_dir, output_file):
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
-        print("Usage: python scan_keywords.py <root_directory> <output_json_file>")
+        print("Usage: python scanA11yProtectedViews.py <root_directory> <output_json_file>")
         sys.exit(1)
     
     root_directory = sys.argv[1]
