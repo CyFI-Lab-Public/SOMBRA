@@ -1,4 +1,4 @@
-package com.example.samplea11yservice;
+package com.example.traversea11yservice;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.samplea11yservice", appContext.getPackageName());
+        assertEquals("com.example.traversea11yservice", appContext.getPackageName());
     }
 }

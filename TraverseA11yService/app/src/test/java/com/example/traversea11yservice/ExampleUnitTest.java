@@ -1,4 +1,4 @@
-package com.example.samplea11yservice;
+package com.example.traversea11yservice;
 
 import org.junit.Test;
 

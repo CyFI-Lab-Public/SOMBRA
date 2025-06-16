@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt"
-    android:packageNames="com.example.viewswitha11yprotection, com.android.chrome,com.coinbase.android,com.ubercab,me.lyft.android,com.mobilecreditcards,com.myklarnamobile,com.alibaba.aliexpresshd,com.amazon.mShop.android.shopping,com.chase.sig.android,com.einnovation.temu,com.cvs.launchers.cvs"
+    android:packageNames="com.google.android.apps.authenticator2"
     android:description="@string/accessibility_service_description"
-    android:accessibilityEventTypes="typeViewClicked|typeViewLongClicked|typeViewSelected|typeViewFocused|typeViewTextChanged|typeWindowStateChanged|typeNotificationStateChanged|typeViewHoverEnter|typeViewHoverExit|typeTouchExplorationGestureStart|typeTouchExplorationGestureEnd|typeWindowContentChanged|typeViewScrolled|typeViewTextSelectionChanged|typeAllMask"
+    android:accessibilityEventTypes="typeViewAccessibilityFocused|typeViewClicked|typeViewLongClicked|typeViewSelected|typeViewFocused|typeViewTextChanged|typeWindowStateChanged|typeNotificationStateChanged|typeViewHoverEnter|typeViewHoverExit|typeTouchExplorationGestureStart|typeTouchExplorationGestureEnd|typeWindowContentChanged|typeViewScrolled|typeViewTextSelectionChanged|typeAllMask"
     android:accessibilityFeedbackType="feedbackSpoken|feedbackVisual"
     android:notificationTimeout="0"
     android:accessibilityFlags="flagDefault|flagIncludeNotImportantViews|flagReportViewIds|flagRetrieveInteractiveWindows"
