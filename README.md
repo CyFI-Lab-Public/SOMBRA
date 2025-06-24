@@ -37,21 +37,22 @@ The `TraverseA11yService` app utilizing the a11y service could further help extr
 2. `mkdir result`
 3. `cp ./test/Pixel_5.zip ~/.android/avd`
 4. `unzip ~/.android/avd/Pixel_5.zip`. This imports an pre-built and pre-configured snapshot of an Android emulator image of an Pixel 5 phone running Android 14. The snapshot contains a pre-installed authenticator app which contains dynamically defined a11y protected views.
-5. Open Android Studio.
-6. On the main menu of Android Studio, click File->Open, then choose the `TraverseA11yService` folder located at `<SOMBRA dir>/TraverseA11yService`, then click Open.
-7. Wait a few seconds to let gradle sync.
-8. You should see an app testing bar on top of the UI like this: ![run bar](README_images/runBar.png) Note: If you have other emulator images installed or physical phones connected, select 'Pixel 5' from the device drop down menu inside the app testing bar.
-9. Then run the app on the Pixel 5 image by pressing the green play botton or ctrl+R on MacOS.
-10. The device manager should boot up the image from the snapshot state and start the TraverseA11yService app. After a few seconds, your emulator screen should look like this: ![app main screen](README_images/appMain.png)
-11. To run the app, first click the top botton labeled "Grant A11y Permission", then you will be redirected to the a11y settings screen, click the "TraverseA11yService" that looks like this: ![a11y setting bar](README_images/a11ySettingBar.png)
-12. Then toggle on for the "Traverse a11y service": ![a11y toggle](README_images/a11ySettingToggle.png).
-13. Then click allow. You will be redirected back to the app's main screen.
-14. Click the second button "Start Traversal" to start dynamic scanning of the authenticator app. After a second, you will be redirected to the authenticator app's screen with a "test" field already pre-configured.
-15. The service will automatically scan the current screen and log the dynamically protected passcode field as a11y-protected.
-16. Then go back to our TraverseA11yService app by clicking the emulated "Back" left triagle button on top of the emulator control bar or by pressing command+shift+B on macOS.
-17. Finally click the bottom "Stop Traversal" button to log the result to disk.
-18. With the emulator still running, from the SOMBRA directory pull the result to local by running `~/Library/Android/sdk/platform-tools/adb pull /sdcard/Android/data/com.example.traversea11yservice/files/dumps/protected_views.csv ./result`. The `adb` binary should already be installed with Android Studio. If not, please [download adb](https://developer.android.com/tools/adb) before running the above command to pull the report to local.
-19. Now exit Android Studio.
+5. Adjust the path variable in `Pixel_5.ini` to your actual path. (`path=<your-path>/avd/Pixel_5.avd`)
+6. Open Android Studio.
+7. On the main menu of Android Studio, click File->Open, then choose the `TraverseA11yService` folder located at `<SOMBRA dir>/TraverseA11yService`, then click Open.
+8. Wait a few seconds to let gradle sync.
+9. You should see an app testing bar on top of the UI like this: ![run bar](README_images/runBar.png) Note: If you have other emulator images installed or physical phones connected, select 'Pixel 5' from the device drop down menu inside the app testing bar.
+10. Then run the app on the Pixel 5 image by pressing the green play botton or ctrl+R on MacOS.
+11. The device manager should boot up the image from the snapshot state and start the TraverseA11yService app. After a few seconds, your emulator screen should look like this: ![app main screen](README_images/appMain.png)
+12. To run the app, first click the top botton labeled "Grant A11y Permission", then you will be redirected to the a11y settings screen, click the "TraverseA11yService" that looks like this: ![a11y setting bar](README_images/a11ySettingBar.png)
+13. Then toggle on for the "Traverse a11y service": ![a11y toggle](README_images/a11ySettingToggle.png).
+14. Then click allow. You will be redirected back to the app's main screen.
+15. Click the second button "Start Traversal" to start dynamic scanning of the authenticator app. After a second, you will be redirected to the authenticator app's screen with a "test" field already pre-configured.
+16. The service will automatically scan the current screen and log the dynamically protected passcode field as a11y-protected.
+17. Then go back to our TraverseA11yService app by clicking the emulated "Back" left triagle button on top of the emulator control bar or by pressing command+shift+B on macOS.
+18. Finally click the bottom "Stop Traversal" button to log the result to disk.
+19. With the emulator still running, from the SOMBRA directory pull the result to local by running `~/Library/Android/sdk/platform-tools/adb pull /sdcard/Android/data/com.example.traversea11yservice/files/dumps/protected_views.csv ./result`. The `adb` binary should already be installed with Android Studio. If not, please [download adb](https://developer.android.com/tools/adb) before running the above command to pull the report to local.
+20. Now exit Android Studio.
 
 #### Interpretation of Result
 The `result/protected_views.csv` contains the "otp-code" textview that is dynamically protected from accessibility services and exposes nothing in a11y text.
