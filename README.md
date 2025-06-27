@@ -1,7 +1,7 @@
 # SOMBRA
 
 This is the codebase of SOMBRA for 2025 CCS AE. Its main functionality is matching app-side accessibility(a11y)-protected views with their mobile browser-rendered counterparts that are unprotected and visible to a11y services.
-SOMBRA consists of an app-side a11y-protected view scanning module and an element matching module that finds the browser-rendered a11y-unprotectd elements that corresponds to those app-side views.
+SOMBRA consists of an app-side a11y-protected view scanning module and an element matching module that finds the browser-rendered a11y-unprotectd elements that corresponds to those app-side views. For the full artifact package including test image and app to run the following usage steps, please download from the [Zenodo](https://zenodo.org/records/15725744) repo.
 
 ## App-side A11y-Protected View Scanning
 This module discovers app-side a11y-protected views for an app both statically and dynamically.
