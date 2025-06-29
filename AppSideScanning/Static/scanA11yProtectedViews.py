@@ -15,6 +15,7 @@ def extract_package_name(manifest_path):
         print(f"Error parsing {manifest_path}: {e}")
         return None
 
+# find patterns in file
 def scan_file(file_path, patterns):
 
     results = []
@@ -32,6 +33,7 @@ def scan_file(file_path, patterns):
         print(f"Error reading {file_path}: {e}")
     return results
 
+# scan all files
 def scan_app_folder(app_folder, patterns):
 
     app_results = []
@@ -46,6 +48,7 @@ def scan_app_folder(app_folder, patterns):
                 })
     return app_results
 
+# organize result based on package name
 def find_manifest(app_folder):
 
     resources_manifest = os.path.join(app_folder, "resources", "AndroidManifest.xml")
@@ -63,6 +66,7 @@ def find_manifest(app_folder):
 
 def main(root_dir, output_file):
 
+    # statically defined a11y protected views
     patterns = {
         "accessibilityDataSensitive": re.compile(r'accessibilityDataSensitive'),
         "setAccessibilityDataSensitive": re.compile(r'setAccessibilityDataSensitive'),
@@ -71,6 +75,7 @@ def main(root_dir, output_file):
     
     results = {}
 
+    # scan all apps
     for app in os.listdir(root_dir):
         app_folder = os.path.join(root_dir, app)
         if os.path.isdir(app_folder):

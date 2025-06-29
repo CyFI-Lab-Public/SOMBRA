@@ -5,18 +5,21 @@ from bs4 import BeautifulSoup
 def view_id_keywords(view_id: str) -> list[str]:
     return [p.lower() for p in re.split(r'[_\-\W]+|(?<=[a-z])(?=[A-Z])', view_id) if p]
 
+# finds associated <label>
 def label_for(soup, inp_id):
     return soup.find("label", attrs={"for": inp_id})
 
+# finds element referenced by aria-describedby
 def helper_for(soup, inp):
     hid = inp.get("aria-describedby", "")
     return soup.find(id=hid) if hid else None
 
+# matches if any keyword hits with any strings
 def hit_keywords(kw, *texts):
     blob = " ".join(texts).lower()
     return any(k in blob for k in kw)
 
-
+# scans the whole HTML for inputs whose label/helper text matches the view_id keywords
 def find_matches_in_page(soup: BeautifulSoup, html_name: str,
                          view_id: str, trace_id) -> list[dict]:
     kw = view_id_keywords(view_id)
@@ -27,6 +30,7 @@ def find_matches_in_page(soup: BeautifulSoup, html_name: str,
         lbl_txt = lbl.get_text(strip=True) if lbl else ""
         helper_txt = helper.get_text(strip=True) if helper else ""
         if hit_keywords(kw, lbl_txt, helper_txt):
+            # collects all a11y metadata
             rows.append({
                 "trace_id":          trace_id,
                 "matched_view_id":   view_id,
@@ -45,20 +49,27 @@ def find_matches_in_page(soup: BeautifulSoup, html_name: str,
 
 
 def main(csv_path: str, html_dir: str, out_csv: str):
+
+    # get the target view rows
     traverse = pd.read_csv(csv_path)
     targets  = traverse.loc[traverse.groupby("trace_id")["step_index"].idxmax()]
 
     matches: list[dict] = []
+
+    # iterate through all htmls in a folder
     for fname in os.listdir(html_dir):
         if not fname.endswith(".html"):
             continue
         with open(os.path.join(html_dir, fname), encoding="utf-8") as fh:
             soup = BeautifulSoup(fh.read(), "html.parser")
+
+        # match every target view_id in this html
         for _, row in targets.iterrows():
             vid = str(row["view_id"])
             if vid and vid.lower() != "nan":
                 matches.extend(find_matches_in_page(soup, fname, vid, row["trace_id"]))
 
+    # outputs the result to a csv
     if matches:
         pd.DataFrame(matches).to_csv(out_csv, index=False, quoting=csv.QUOTE_MINIMAL)
         print(f"{len(matches)} matches written to {out_csv}")

@@ -3,6 +3,7 @@ import re
 import sys
 import json
 
+# find patterns in file
 def scan_file(file_path, patterns):
 
     results = []
@@ -20,6 +21,7 @@ def scan_file(file_path, patterns):
         print(f"Error reading {file_path}: {e}")
     return results
 
+# scan all files
 def scan_app_folder(app_folder, patterns):
 
     matches = []
@@ -36,6 +38,7 @@ def scan_app_folder(app_folder, patterns):
 
 def main(root_dir, output_file):
 
+    # patterns for sensitive app side views
     patterns = {
         "xml_sensitive": re.compile(r'android:accessibilityDataSensitive="yes"'),
         "set_sensitive": re.compile(r'setAccessibilityDataSensitive\s*\(.*ACCESSIBILITY_DATA_SENSITIVE_YES'),
@@ -50,6 +53,7 @@ def main(root_dir, output_file):
         print(f"No app folders found in {root_dir}")
         return
 
+    # scan all apps
     for app in app_dirs:
         app_path = os.path.join(root_dir, app)
         print(f"Scanning app folder: {app}")

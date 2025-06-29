@@ -39,10 +39,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Make user grant a11y service permission if not already granted
         Button buttonGrant = findViewById(R.id.buttonGrant);
         buttonGrant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check if a11y is already enabled
                 AccessibilityManager accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
                 List<AccessibilityServiceInfo> enabledServices = accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
                 if (enabledServices.isEmpty()) {
@@ -56,11 +58,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
+                // If not enabled, open accessibility settings and make user enable it
                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                 startActivity(intent);
             }
         });
 
+        // Starting the traversal
         Button buttonStart = findViewById(R.id.buttonStart);
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 for (AccessibilityServiceInfo service : enabledServices) {
                     if (service.getId().contains("com.example.traversea11yservice/.TraverseA11yService")) {
                         String[] packages = service.packageNames;
+                        // Declare the app to traverse
                         if (packages == null || packages.length == 0) {
                             Toast.makeText(MainActivity.this, "No app to traverse, please declare the app to traverse in accessibility_service_config.xml", Toast.LENGTH_SHORT).show();
                             return;
@@ -82,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                             return;
                         }
 
+                        // Start the traversal in the declared app, opens the app in the launch activity
                         String pkg = packages[0];
                         Toast.makeText(MainActivity.this, "Starting to traverse: "+pkg, Toast.LENGTH_SHORT).show();
                         new Handler(Looper.getMainLooper()).postDelayed(() -> {

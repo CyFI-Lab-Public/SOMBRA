@@ -9,11 +9,14 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
+// a11y service to traverse the view hierarchy in a given app's foreground page and log sensitive views
+// Needs manual interaction in the app to traverse
 public class TraverseA11yService extends AccessibilityService {
 
     private void traverseAndLogSensitiveViews(AccessibilityNodeInfo node) {
         if (node == null) return;
 
+        // Finds protected views based on their view properties
         boolean isSensitive = node.isAccessibilityDataSensitive();
         boolean isPassword = node.isPassword();
         boolean notVisible = !node.isVisibleToUser();
@@ -22,6 +25,7 @@ public class TraverseA11yService extends AccessibilityService {
         boolean notEnabled = !node.isEnabled();
         StringBuilder flags = new StringBuilder();
 
+        // Logs the properties of the view
         if (isSensitive) {
             flags.append("Sensitive ");
         }
@@ -46,6 +50,9 @@ public class TraverseA11yService extends AccessibilityService {
             String viewId = (node.getViewIdResourceName() != null) ? node.getViewIdResourceName() : "null";
             String contentDescription = (node.getContentDescription() != null) ? node.getContentDescription().toString() : "null";
             String hintText = (node.getHintText() != null) ? node.getHintText().toString() : "null";
+
+            // Logs views that you want to inspect, for the default example Google Authenticator app, logs the properties for the "otp code" views.
+            // Modify the logic to log specific types of views based on your needs, or remove the logic to log all views.
             if (viewId.contains(getString(R.string.target_view))) {
                 MyLogger logger = (MyLogger) getApplicationContext();
                 if (!logger.viewIDs.contains(viewId)) {
@@ -56,6 +63,7 @@ public class TraverseA11yService extends AccessibilityService {
             }
         }
 
+        // Recursively traverse child nodes of the current page element
         for (int i = 0; i < node.getChildCount(); i++) {
             AccessibilityNodeInfo child = node.getChild(i);
             traverseAndLogSensitiveViews(child);
@@ -65,6 +73,7 @@ public class TraverseA11yService extends AccessibilityService {
         }
     }
 
+    // Traverses the view hierarchy and logs sensitive views when an accessibility event occurs
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         AccessibilityNodeInfo root = getRootInActiveWindow();
@@ -72,6 +81,7 @@ public class TraverseA11yService extends AccessibilityService {
             traverseAndLogSensitiveViews(root);
         }
 
+//        // Uncomment the following lines to debug specific events if need
 //        if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
 //            AccessibilityNodeInfo curNode = event.getSource();
 //            return;
